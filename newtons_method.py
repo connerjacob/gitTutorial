@@ -1,7 +1,6 @@
 mport sys
 
 from typing import (Callable, Tuple)
-import typing
 from fractions import (Fraction)
 
 
@@ -39,35 +38,41 @@ def newtons_method(f: Callable[[float], float],
 
 
                                                                                                         def main():
-                                                                                                                try:
-                                                                                                                            initial_guess = float(sys.argv[1])
+                                                                                                                """
+                                                                                                                    This main function serves as the driver for the demo. Such functions
+                                                                                                                        are not required in Python. However, we want to prevent unnecessary module
+                                                                                                                            level (i.e., global) variables.
+                                                                                                                                """
 
-                                                                                                                                except IndexError as error:
-                                                                                                                                            print("Usage: {0} initial_guess".format(*sys.argv))
-                                                                                                                                                    sys.exit(1)
+                                                                                                                                    try:
+                                                                                                                                                initial_guess = float(sys.argv[1])
 
-                                                                                                                                                        except ValueError as error:
-                                                                                                                                                                    print("ERROR: {0} is not a valid number".format(*sys.argv))
-                                                                                                                                                                            print("  " + str(error))
-                                                                                                                                                                                    sys.exit(2)
+                                                                                                                                                    except IndexError as error:
+                                                                                                                                                                print("Usage: {0} initial_guess".format(*sys.argv))
+                                                                                                                                                                        sys.exit(1)
 
-                                                                                                                                                                                        # Function (f) and its derivative (dx)
-                                                                                                                                                                                            def f(x):
-                                                                                                                                                                                                        return (x ** 2) - 1
+                                                                                                                                                                            except ValueError as error:
+                                                                                                                                                                                        print("ERROR: {0} is not a valid number".format(*sys.argv))
+                                                                                                                                                                                                print("  " + str(error))
+                                                                                                                                                                                                        sys.exit(2)
 
-                                                                                                                                                                                                        def df(x):
-                                                                                                                                                                                                                    return 2 * x
+                                                                                                                                                                                                            # Function (f) and its derivative (dx)
+                                                                                                                                                                                                                def f(x):
+                                                                                                                                                                                                                            return (x ** 2) - 1
 
-                                                                                                                                                                                                                    try:
-                                                                                                                                                                                                                                num_iterations, solution_newton = newtons_method(f, df, initial_guess)
-                                                                                                                                                                                                                                        fx_newton = f(solution_newton)
+                                                                                                                                                                                                                            def df(x):
+                                                                                                                                                                                                                                        return 2 * x
 
-                                                                                                                                                                                                                                                output_str = "x = {:.4f} | f(x) = {:.4f} | {} iterations"
-                                                                                                                                                                                                                                                        print(output_str.format(solution_newton, fx_newton, num_iterations))
+                                                                                                                                                                                                                                        try:
+                                                                                                                                                                                                                                                    num_iterations, solution_newton = newtons_method(f, df, initial_guess)
+                                                                                                                                                                                                                                                            fx_newton = f(solution_newton)
 
-                                                                                                                                                                                                                                                            except ZeroDivisionError as error:
-                                                                                                                                                                                                                                                                        print(str(error))
+                                                                                                                                                                                                                                                                    output_str = "x = {:.4f} | f(x) = {:.4f} | {} iterations"
+                                                                                                                                                                                                                                                                            print(output_str.format(solution_newton, fx_newton, num_iterations))
+
+                                                                                                                                                                                                                                                                                except ZeroDivisionError as error:
+                                                                                                                                                                                                                                                                                            print(str(error))
 
 
-                                                                                                                                                                                                                                                                        if __name__ == "__main__":
-                                                                                                                                                                                                                                                                                main()
+                                                                                                                                                                                                                                                                                            if __name__ == "__main__":
+                                                                                                                                                                                                                                                                                                    main()
